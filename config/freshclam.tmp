@@ -1,0 +1,5 @@
+DNSDatabaseInfo no
+CompressLocalDatabase yes
+ScriptedUpdates no
+PidFile /tmp/freshclam.pid
+PrivateMirror http://127.0.0.1:1337/mirror

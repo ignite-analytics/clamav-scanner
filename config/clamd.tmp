@@ -1,0 +1,7 @@
+LocalSocket /tmp/clamd.sock
+StreamMaxLength 512M
+MaxScanSize 512M
+MaxFileSize 512M
+PidFile /tmp/clamd.pid
+TCPSocket 3310
+TCPAddr 0.0.0.0
