@@ -7,7 +7,7 @@ It is a simple service that scans files for malware using the ClamAV antivirus e
 ### How it works
 The architecture is a bit different because there is no need to have Unscanned bucket used as sink for all uploaded files. Instead, you register buckets you whish to scan and if malware is found, the file is moved to Quarantine bucket. The image is build using Dockerfile and runs ClamAV as unprivilegued user and listens on port 1337.
 
-![Architecture diagram](gke-clamav-scanner.svg)
+![Architecture diagram](gke-diagram.svg)
 
 ### Endpoints
 
