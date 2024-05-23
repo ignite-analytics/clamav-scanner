@@ -55,10 +55,13 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 		log.Printf("Scan completed for %s: %s\n", reqBody.Name, resultMsg)
 
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(map[string]string{
+		if err := json.NewEncoder(w).Encode(map[string]string{
 			"message": "Scan completed for " + reqBody.Name,
 			"result":  resultMsg,
-		})
+		}); err != nil {
+			http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		}
+
 	}
 }
 
