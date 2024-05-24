@@ -16,6 +16,7 @@ jobs:
     outputs:
       changed: ${{ steps.filter.outputs.changed }}
       pulumi: ${{ steps.filter.outputs.pulumi }}
+      helm: ${{ steps.filter.outputs.helm }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
