@@ -1,0 +1,57 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+
+# The lines bellow are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+        -X main.Version={{ .Tag }}
+        -X main.GitCommit={{ .Commit }}
+        -X main.BuildDate={{ .Date }}
+    binary: clamav-scanner
+
+archives:
+  - id: clamav-scanner
+    format: tgz
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: '{{ .ProjectName }}-checksum.sha'
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  groups:
+    - title: Added
+      regexp: '^.*?feature(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: "Fixed"
+      regexp: '^.*?bug(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: Updated
+      regexp: '^.*?Bump(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: Docs
+      regexp: '^.*?docs(\([[:word:]]+\))??!?:.+$'
+      order: 3
+    - title: Other
+      order: 999
