@@ -17,6 +17,7 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       packages: write
       contents: read
       attestations: write
@@ -69,3 +70,16 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:0.1.0-alpha.1
+          format: sarif
+          ignore-unfixed: true
+          output: trivy-results.sarif
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-results.sarif
