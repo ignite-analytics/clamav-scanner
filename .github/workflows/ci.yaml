@@ -29,6 +29,8 @@ jobs:
               - '!infrastructure/**'
             pulumi:
               - 'infrastructure/pulumi/**'
+            helm:
+              - 'infrastructure/helm/**'
 
   test:
     name: Test
@@ -101,3 +103,38 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  helm:
+    name: Helm
+    needs:
+      - meta
+    if: needs.meta.outputs.helm == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./infrastructure/helm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Helm documentation
+        uses: losisin/helm-docs-github-action@v1
+        with:
+          git-push: false
+
+      - name: Check values schema json
+        uses: losisin/helm-values-schema-json-action@v1
+        with:
+          input: values.yaml
+          output: values.schema.json
+          git-push: false
+
+      - name: Lint helm chart
+        run: helm lint . -f values.yaml --debug
+
+      - name: Helm unit tests
+        shell: bash
+        run: |
+          helm plugin install https://github.com/helm-unittest/helm-unittest.git
+          helm unittest . --failfast --strict --debug --color
