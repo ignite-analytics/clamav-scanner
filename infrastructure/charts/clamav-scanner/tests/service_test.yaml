@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Service Test
+templates:
+  - templates/service.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should create service
+    asserts:
+      - isKind:
+          of: Service
+      - hasDocuments:
+          count: 1
+  - it: should render type
+    asserts:
+      - equal:
+          path: spec.type
+          value: ClusterIP
+  - it: should render ports
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            port: 80
+            targetPort: http
+            protocol: TCP
+            name: http
+  - it: should render selector labels
+    asserts:
+      - equal:
+          path: spec.selector
+          value:
+            app.kubernetes.io/instance: clamav-scanner
+            app.kubernetes.io/name: clamav-scanner

@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Configmap Test
+templates:
+  - templates/cronjob.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should create a cronjob
+    asserts:
+      - isKind:
+          of: CronJob
+      - hasDocuments:
+          count: 1
+  - it: should get env from configmap
+    asserts:
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].envFrom
+          content:
+            configMapRef:
+              name: config-env
+  - it: should have resources set
+    asserts:
+      - isNotNullOrEmpty:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.requests
+      - isNotNullOrEmpty:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.limits
+  - it: should have security context
+    asserts:
+      - isNotNullOrEmpty:
+          path: spec.jobTemplate.spec.template.spec.containers[0].securityContext
+      - isNotNullOrEmpty:
+          path: spec.jobTemplate.spec.template.spec.securityContext

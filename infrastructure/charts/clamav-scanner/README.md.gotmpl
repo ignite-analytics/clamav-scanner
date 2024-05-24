@@ -1,0 +1,71 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+A Helm chart for deploying ClamAV Scanner to GKE cluster.
+
+## Prerequisites
+
+Before instaling the chart, you need to have the following:
+
+- A running Kubernetes cluster with at least one node pool configured with Workload Identity Federation for GKE enabled. 
+Create new or updating existing cluster and node pool. See docs [here](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity).
+- IAM service account with at least `roles/storage.objectUser` role assigned to it for `mirrorBucket`, `quarantineBucket` and all buckets that you want to scan with ClamAV.
+`roles/storage.objectUser` makes sure that the service account can upload files to it's own buckets and move files between scan bucket and quarantine without granting more powerful roles like `objectAdmin`.
+
+```console
+gsutil iam ch serviceAccount:$SA_EMAIL:objectUser gs://$BUCKET_NAME
+```
+
+- IAM policy that gives Kubernetes service account the permission to impersonate the service account with `roles/iam.workloadIdentityUser` role.
+
+```console
+gcloud iam service-accounts add-iam-policy-binding $SA@$PROJECT_ID.iam.gserviceaccount.com \
+  --role roles/iam.workloadIdentityUser \
+  --member "serviceAccount:$PROJECT_ID.svc.id.goog[NAMESPACE/KSA_NAME]"
+```
+
+- IAM policy that gives the service account Pub/Sub Subscriber role to pull messages from `event-forwarder` pod.
+
+```console
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:$SA_EMAIL" \
+  --role="roles/pubsub.subscriber" \
+  --condition=None
+```
+
+- IAM policy that gives the service account Monitoring Metric Writer role to export metrics from `event-forwarder` pod to Stackdriver.
+
+```console
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:$SA_EMAIL" \
+  --role="roles/monitoring.metricWriter" \
+  --condition=None
+```
+
+- Route Eventarc events to GKE. See docs [here](https://cloud.google.com/eventarc/docs/gke/route-trigger-cloud-storage#gcloud)
+- Eventarc trigger that listens for new objects in the bucket and triggers the GKE service:
+
+```console
+gcloud eventarc triggers create $TRIGGER_NAME \
+  --location=$TRIGGER_LOCATION \
+  --destination-gke-cluster=$GKE_CLUSTER \
+  --destination-gke-location=$GKE_LOCATION \
+  --destination-gke-namespace=$GKE_NAMESPACE \
+  --destination-gke-service=$KSA_NAME \
+  --destination-gke-path=/scan \
+  --event-filters="type=google.cloud.storage.object.v1.finalized" \
+  --event-filters="bucket=$BUCKET_NAME" \
+  --service-account=$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com
+```
+
+- Add annotation to the GKE service account to allow impersonation in `values.yaml`:
+
+```yaml
+serviceAccount:
+  annotations:
+    iam.gke.io/gcp-service-account: $SA_NAME@$PROJECT_ID.iam.gserviceaccount.com
+```
+
+{{ template "chart.valuesSection" . }}

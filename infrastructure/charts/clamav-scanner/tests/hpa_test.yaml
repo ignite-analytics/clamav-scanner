@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: HorizontalPodAutoscaler Test
+templates:
+  - templates/hpa.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should render document
+    set:
+      autoscaling.enabled: true
+    asserts:
+      - isKind:
+          of: HorizontalPodAutoscaler
+      - hasDocuments:
+          count: 1
+  - it: should NOT render document
+    set:
+      autoscaling.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should target the correct deployment
+    asserts:
+      - equal:
+          path: spec.scaleTargetRef.name
+          value: RELEASE-NAME-clamav-scanner
+      - equal:
+          path: spec.scaleTargetRef.kind
+          value: Deployment
+  - it: should set minReplicas and maxReplicas
+    asserts:
+      - isNotNullOrEmpty:
+          path: spec.minReplicas
+      - isNotNullOrEmpty:
+          path: spec.maxReplicas

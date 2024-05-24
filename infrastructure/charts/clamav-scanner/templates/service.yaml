@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "clamav-scanner.fullname" . }}
+  labels:
+    {{- include "clamav-scanner.labels" . | nindent 4 }}
+  {{- if eq .Values.service.type "LoadBalancer" }}
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "clamav-scanner.selectorLabels" . | nindent 4 }}

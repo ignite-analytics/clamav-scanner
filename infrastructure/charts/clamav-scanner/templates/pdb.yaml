@@ -1,0 +1,13 @@
+{{- if .Values.poddisruptionbudget.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    {{- include "clamav-scanner.labels" . | nindent 4 }}
+  name: {{ include "clamav-scanner.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "clamav-scanner.selectorLabels" . | nindent 6 }}
+  minAvailable: {{ .Values.poddisruptionbudget.minAvailable }}
+{{- end }}

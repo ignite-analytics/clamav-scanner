@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "clamav-scanner.fullname" . }}-update
+  labels:
+    {{- include "clamav-scanner.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.update.schedule }}
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 30
+      template:
+        spec:
+          serviceAccountName: {{ include "clamav-scanner.serviceAccountName" . }}
+          automountServiceAccountToken: false
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+            - name: {{ .Chart.Name }}-update
+              image: "{{ .Values.update.image.repository }}:{{ .Values.update.image.tag }}"
+              imagePullPolicy: IfNotPresent
+              args:
+                - -X
+                - GET
+                - http://{{ include "clamav-scanner.fullname" . }}/update
+              envFrom:
+                {{- if (not (empty .Values.extraConfigMap)) }}
+                - configMapRef:
+                    name: config-env
+                {{- end }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+          {{- with .Values.update.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.update.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.update.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          restartPolicy: Never
+      backoffLimit: 0
+      parallelism: 1
+      completions: 1

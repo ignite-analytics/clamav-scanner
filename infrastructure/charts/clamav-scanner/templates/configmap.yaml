@@ -1,0 +1,12 @@
+{{- if (not (empty .Values.extraConfigMap)) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-env
+  labels:
+    {{- include "clamav-scanner.labels" . | nindent 4 }}
+data:
+  {{- range $key, $value := .Values.extraConfigMap }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: PodDisruptionBudget Test
+templates:
+  - templates/pdb.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should render document
+    set:
+      poddisruptionbudget.enabled: true
+    asserts:
+      - isKind:
+          of: PodDisruptionBudget
+      - hasDocuments:
+          count: 1
+  - it: should NOT render document
+    set:
+      poddisruptionbudget.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should target the correct deployment
+    set:
+      poddisruptionbudget.enabled: true
+    asserts:
+      - equal:
+          path: spec.minAvailable
+          value: 1
+      - equal:
+          path: spec.selector.matchLabels["app.kubernetes.io/name"]
+          value: clamav-scanner
+      - equal:
+          path: spec.selector.matchLabels["app.kubernetes.io/instance"]
+          value: clamav-scanner
