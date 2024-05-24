@@ -1,11 +1,14 @@
-name: ci
+name: Continuous Integration
+
 on:
   pull_request:
     branches:
       - main
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   test:
     name: Test
@@ -17,21 +20,27 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
           cache: true
+
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v5
         with:
           args: --timeout 5m0s
           skip-cache: true
+
       - name: Format go files
         run: go fmt ./...
+
       - name: Vet go files
         run: go vet ./...
+
       - name: Verify dependency tree
         run: go mod verify
+
       - name: Run tests
         run: go test -v ./...

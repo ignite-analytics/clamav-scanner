@@ -2,8 +2,8 @@ FROM debian:12.5-slim
 
 ENV PATH "$PATH:/opt/google-cloud-sdk/bin/"
 
-COPY services/clamav-scanner/clamav-scanner /usr/bin/clamav-scanner
-COPY services/clamav-scanner/config/* /tmp
+COPY clamav-scanner /usr/bin/clamav-scanner
+COPY config/* /tmp
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -qqy && \
