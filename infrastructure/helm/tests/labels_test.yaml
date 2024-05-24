@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Labels Test
+templates:
+  - templates/configmap.yaml
+  - templates/deployment.yaml
+  - templates/cronjob.yaml
+  - templates/hpa.yaml
+  - templates/pdb.yaml
+  - templates/service.yaml
+  - templates/serviceaccount.yaml
+set:
+  ingress.enabled: true
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should render correct labels
+    asserts:
+      - equal:
+          path: metadata.labels["app.kubernetes.io/name"]
+          value: clamav-scanner
+      - equal:
+          path: metadata.labels["app.kubernetes.io/instance"]
+          value: clamav-scanner

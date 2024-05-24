@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Configmap Test
+templates:
+  - templates/configmap.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should create a configmap
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+  - it: should contain certain keys
+    asserts:
+      - equal:
+          path: data.MIRROR_BUCKET
+          value: clamav-scanner-mirror
+          count: 1
+      - equal:
+          path: data.QUARANTINE_BUCKET
+          value: clamav-scanner-quarantine
+          count: 1
+      - equal:
+          path: data.LISTEN_ADDRESS
+          value: :1337
+          count: 1

@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Configmap Test
+templates:
+  - templates/deployment.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 26
+tests:
+  - it: should create a deployment
+    asserts:
+      - isKind:
+          of: Deployment
+      - hasDocuments:
+          count: 1
+  - it: should get env from configmap
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].envFrom
+          content:
+            configMapRef:
+              name: config-env
+  - it: should have resources set
+    asserts:
+      - isNotNullOrEmpty:
+          path: spec.template.spec.containers[0].resources.requests
+      - isNotNullOrEmpty:
+          path: spec.template.spec.containers[0].resources.limits
+  - it: should have probes defined
+    asserts:
+      - isNotNullOrEmpty:
+          path: spec.template.spec.containers[0].livenessProbe
+      - isNotNullOrEmpty:
+          path: spec.template.spec.containers[0].readinessProbe
+  - it: should have a container ports defined
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            containerPort: 1337
+            name: http
+            protocol: TCP
+  - it: should have security context
+    asserts:
+      - isNotNullOrEmpty:
+          path: spec.template.spec.containers[0].securityContext
+      - isNotNullOrEmpty:
+          path: spec.template.spec.securityContext
+  - it: should have tolerations
+    asserts:
+      - contains:
+          path: spec.template.spec.tolerations
+          content:
+            effect: NoSchedule
+            key: workload
+            operator: Equal
+            value: disruptive
+  - it: should have pod anti-affinity
+    asserts:
+      - contains:
+          path: spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions
+          content:
+            key: app
+            operator: In
+            values:
+              - clamav-scanner
