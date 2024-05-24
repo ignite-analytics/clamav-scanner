@@ -10,8 +10,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  meta:
+    name: Prepare metadata
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.filter.outputs.changed }}
+      pulumi: ${{ steps.filter.outputs.pulumi }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3.0.0
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            changed:
+              - '!infrastructure/**'
+            pulumi:
+              - added|modified: 'infrastructure/pulumi/**'
+
   test:
     name: Test
+    if: needs.meta.outputs.changed == 'true'
     runs-on: ubuntu-latest
     env:
       VERBOSE: 1
@@ -44,3 +65,30 @@ jobs:
 
       - name: Run tests
         run: go test -v ./...
+
+  pulumi:
+    name: Pulumi TypeScript
+    if: needs.meta.outputs.pulumi == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        id: node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Lint typescript files
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
