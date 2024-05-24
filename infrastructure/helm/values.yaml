@@ -93,24 +93,9 @@ autoscaling:
 
 nodeSelector: {}
 
-tolerations:
-  - effect: NoSchedule
-    key: workload
-    operator: Equal
-    value: disruptive
+tolerations: []
 
-affinity:
-  # -- Pod anti-affinity
-  # @default -- `{}`
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-            - key: app
-              operator: In
-              values:
-                - clamav-scanner
-        topologyKey: "kubernetes.io/hostname"
+affinity: {}
 
 # -- Key/value pairs to be exposed as environment variables
 # @default -- `{}`

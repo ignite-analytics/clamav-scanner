@@ -2,7 +2,7 @@
 
 ClamAV Scanner Helm Chart
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.0](https://img.shields.io/badge/AppVersion-0.2.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.1](https://img.shields.io/badge/AppVersion-0.2.1-informational?style=flat-square)
 
 A Helm chart for deploying ClamAV Scanner to GKE cluster.
 
@@ -73,7 +73,7 @@ serviceAccount:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity.podAntiAffinity | object | `{}` | Pod anti-affinity |
+| affinity | object | `{}` |  |
 | autoscaling.enabled | bool | `true` |  |
 | autoscaling.maxReplicas | int | `5` |  |
 | autoscaling.minReplicas | int | `1` |  |
@@ -125,10 +125,7 @@ serviceAccount:
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `10` |  |
-| tolerations[0].effect | string | `"NoSchedule"` |  |
-| tolerations[0].key | string | `"workload"` |  |
-| tolerations[0].operator | string | `"Equal"` |  |
-| tolerations[0].value | string | `"disruptive"` |  |
+| tolerations | list | `[]` |  |
 | update.affinity | object | `{}` |  |
 | update.image.repository | string | `"alpine/curl"` |  |
 | update.image.tag | string | `"8.5.0"` |  |

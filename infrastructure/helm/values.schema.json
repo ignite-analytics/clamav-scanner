@@ -2,49 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "properties": {
         "affinity": {
-            "properties": {
-                "podAntiAffinity": {
-                    "properties": {
-                        "requiredDuringSchedulingIgnoredDuringExecution": {
-                            "items": {
-                                "properties": {
-                                    "labelSelector": {
-                                        "properties": {
-                                            "matchExpressions": {
-                                                "items": {
-                                                    "properties": {
-                                                        "key": {
-                                                            "type": "string"
-                                                        },
-                                                        "operator": {
-                                                            "type": "string"
-                                                        },
-                                                        "values": {
-                                                            "items": {
-                                                                "type": "string"
-                                                            },
-                                                            "type": "array"
-                                                        }
-                                                    },
-                                                    "type": "object"
-                                                },
-                                                "type": "array"
-                                            }
-                                        },
-                                        "type": "object"
-                                    },
-                                    "topologyKey": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            },
-                            "type": "array"
-                        }
-                    },
-                    "type": "object"
-                }
-            },
+            "properties": {},
             "type": "object"
         },
         "autoscaling": {
@@ -293,23 +251,6 @@
             "type": "object"
         },
         "tolerations": {
-            "items": {
-                "properties": {
-                    "effect": {
-                        "type": "string"
-                    },
-                    "key": {
-                        "type": "string"
-                    },
-                    "operator": {
-                        "type": "string"
-                    },
-                    "value": {
-                        "type": "string"
-                    }
-                },
-                "type": "object"
-            },
             "type": "array"
         },
         "update": {
