@@ -18,7 +18,6 @@ jobs:
       packages: write
       contents: read
       attestations: write
-      actions: read
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
