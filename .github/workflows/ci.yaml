@@ -122,13 +122,14 @@ jobs:
       - name: Check Helm documentation
         uses: losisin/helm-docs-github-action@v1
         with:
+          chart-search-root: infrastructure/helm
           git-push: false
 
       - name: Check values schema json
         uses: losisin/helm-values-schema-json-action@v1
         with:
-          input: values.yaml
-          output: values.schema.json
+          input: infrastructure/helm/values.yaml
+          output: infrastructure/helm/values.schema.json
           git-push: false
 
       - name: Lint helm chart
