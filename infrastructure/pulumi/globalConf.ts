@@ -2,8 +2,8 @@ export const name = 'clamav-scanner' // service name
 export const project = '' // GCP project ID
 export const region = '' // service location
 export const image = {
-	repository: 'europe-docker.pkg.dev/clamav-scanner/clamav-scanner',
-	tag: process.env['VERSION'] || 'latest'
+	repository: 'ghcr.io/ignite-analytics/clamav-scanner',
+	tag: '0.1.0'
 }
 export const schedule = {
 	cron: '37 */2 * * *',

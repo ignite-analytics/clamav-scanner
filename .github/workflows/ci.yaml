@@ -32,6 +32,8 @@ jobs:
 
   test:
     name: Test
+    needs:
+      - meta
     if: needs.meta.outputs.changed == 'true'
     runs-on: ubuntu-latest
     env:
@@ -68,6 +70,8 @@ jobs:
 
   pulumi:
     name: Pulumi
+    needs:
+      - meta
     if: needs.meta.outputs.pulumi == 'true'
     runs-on: ubuntu-latest
     steps:
