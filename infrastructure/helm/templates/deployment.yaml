@@ -4,7 +4,6 @@ metadata:
   name: {{ include "clamav-scanner.fullname" . }}
   labels:
     {{- include "clamav-scanner.labels" . | nindent 4 }}
-    {{- include "clamav-scanner.extraLabels" . | nindent 4 }}
 spec:
   revisionHistoryLimit: 0
   {{- if not .Values.autoscaling.enabled }}
@@ -21,7 +20,6 @@ spec:
       {{- end }}
       labels:
         {{- include "clamav-scanner.labels" . | nindent 8 }}
-        {{- include "clamav-scanner.extraLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

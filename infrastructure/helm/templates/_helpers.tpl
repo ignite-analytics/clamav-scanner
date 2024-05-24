@@ -45,13 +45,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Extra labels
-*/}}
-{{- define "clamav-scanner.extraLabels" -}}
-environment: {{  .Values.target_env }}
-{{- end }}
-
-{{/*
 Selector labels
 */}}
 {{- define "clamav-scanner.selectorLabels" -}}
