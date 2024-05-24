@@ -87,7 +87,7 @@ func bootstrap(ctx context.Context, client *storage.Client) {
 		gsutilCmd := exec.Command("gsutil", "-m", "-q", "rsync", "-d", "-c", "-r", "/clamav/cvds",
 			fmt.Sprintf("gs://%s/", mirrorBucket))
 		if err := gsutilCmd.Run(); err != nil {
-			log.Fatalf("Failed to upload inital CVDs to mirror: %v", err)
+			log.Fatalf("Failed to upload initial CVDs to mirror: %v", err)
 		}
 	}
 
