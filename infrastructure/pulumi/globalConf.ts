@@ -3,7 +3,7 @@ export const project = 'my-project' // GCP project ID
 export const region = 'europe-west1' // service location
 export const image = {
 	repository: 'ghcr.io/ignite-analytics/clamav-scanner',
-	tag: '0.1.0'
+	tag: '0.2.0'
 }
 export const schedule = {
 	cron: '37 */2 * * *',
