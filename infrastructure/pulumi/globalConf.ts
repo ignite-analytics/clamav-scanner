@@ -15,7 +15,12 @@ export const service = {
 }
 export const event = {
 	type: 'google.cloud.storage.object.v1.finalized',
-	buckets: [{name: 'bucket-name', location: 'EU'}]
+	buckets: [
+		{
+			name: 'bucket-name',
+			location: 'EU'
+		}
+	]
 }
 export const storage = {
 	location: 'EU',
