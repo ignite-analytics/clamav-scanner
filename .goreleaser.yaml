@@ -45,10 +45,10 @@ changelog:
       regexp: '^.*?feature(\([[:word:]]+\))??!?:.+$'
       order: 0
     - title: "Fixed"
-      regexp: '^.*?bug(\([[:word:]]+\))??!?:.+$'
+      regexp: '^.*?bug|fix(\([[:word:]]+\))??!?:.+$'
       order: 1
     - title: Updated
-      regexp: '^.*?Bump(\([[:word:]]+\))??!?:.+$'
+      regexp: '^.*?Bump|chore(\([[:word:]]+\))??!?:.+$'
       order: 2
     - title: Docs
       regexp: '^.*?docs(\([[:word:]]+\))??!?:.+$'
