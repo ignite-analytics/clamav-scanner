@@ -3,7 +3,7 @@
 [![Continuous Integration](https://github.com/ignite-analytics/clamav-scanner/actions/workflows/ci.yaml/badge.svg)](https://github.com/ignite-analytics/clamav-scanner/actions/workflows/ci.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ignite-analytics/clamav-scanner)](https://goreportcard.com/report/github.com/ignite-analytics/clamav-scanner)
 [![Static Badge](https://img.shields.io/badge/licence%20-%20MIT-green)](https://github.com/ignite-analytics/clamav-scanner/blob/main/LICENSE)
-[![GitHub release (with filter)](https://img.shields.io/github/v/release/ignite-analytics/clamav-scanner)](https://github.com/ignite-analytics/clamav-scanner)
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/ignite-analytics/clamav-scanner)](https://github.com/ignite-analytics/clamav-scanner/releases)
 
 *This project is largely inspired by the [Malware Scanner Service](https://github.com/GoogleCloudPlatform/docker-clamav-malware-scanner).*
 
