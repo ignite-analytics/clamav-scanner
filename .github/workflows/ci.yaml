@@ -67,7 +67,7 @@ jobs:
         run: go test -v ./...
 
   pulumi:
-    name: Pulumi TypeScript
+    name: Pulumi
     if: needs.meta.outputs.pulumi == 'true'
     runs-on: ubuntu-latest
     steps:
