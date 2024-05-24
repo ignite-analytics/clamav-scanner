@@ -28,7 +28,7 @@ jobs:
             changed:
               - '!infrastructure/**'
             pulumi:
-              - added|modified: 'infrastructure/pulumi/**'
+              - 'infrastructure/pulumi/**'
 
   test:
     name: Test
@@ -74,6 +74,10 @@ jobs:
       - meta
     if: needs.meta.outputs.pulumi == 'true'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./infrastructure/pulumi
     steps:
       - name: Checkout
         uses: actions/checkout@v4
