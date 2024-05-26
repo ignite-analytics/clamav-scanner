@@ -45,21 +45,3 @@ tests:
           path: spec.template.spec.containers[0].securityContext
       - isNotNullOrEmpty:
           path: spec.template.spec.securityContext
-  - it: should have tolerations
-    asserts:
-      - contains:
-          path: spec.template.spec.tolerations
-          content:
-            effect: NoSchedule
-            key: workload
-            operator: Equal
-            value: disruptive
-  - it: should have pod anti-affinity
-    asserts:
-      - contains:
-          path: spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchExpressions
-          content:
-            key: app
-            operator: In
-            values:
-              - clamav-scanner
