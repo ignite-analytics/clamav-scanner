@@ -43,7 +43,7 @@ There are two ways to deploy this service and both examples are located in `infr
 
 ## Issues, Features, Feedback
 
-Your input matters. Feel free to open [issues](https://github.com/losisin/gcp-pac/issues) for bugs, feature requests, or any feedback you may have. Check if a similar issue exists before creating a new one, and please use clear titles and explanations to help understand your point better. Your thoughts help me improve this project!
+Your input matters. Feel free to open [issues](https://github.com/ignite-analytics/clamav-scanner/issues) for bugs, feature requests, or any feedback you may have. Check if a similar issue exists before creating a new one, and please use clear titles and explanations to help understand your point better. Your thoughts help me improve this project!
 
 ### How to Contribute
 
