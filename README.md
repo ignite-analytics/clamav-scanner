@@ -38,8 +38,9 @@ There are 4 endpoints available:
 ### Deployment
 
 There are two ways to deploy this service and both examples are located in `infrastructure` directory:
-- Pulumi Typescript app for Cloud Run deployment
 - Helm3 chart for GKE deployment
+- OpenTofu module for Cloud Run deployment
+- Pulumi Typescript app for Cloud Run deployment
 
 ## Issues, Features, Feedback
 
