@@ -24,6 +24,26 @@ output "crypto_key_id" {
 }
 
 output "storage_bucket_id" {
-  value       = [for bucket in google_storage_bucket.bucket : bucket.url]
+  value       = [for b in google_storage_bucket.bucket : b.url]
   description = "List of buckets created"
+}
+
+output "service_id" {
+  value       = google_cloud_run_v2_service.default.id
+  description = "Cloud Run service ID"
+}
+
+output "service_uri" {
+  value       = google_cloud_run_v2_service.default.uri
+  description = "Cloud Run service main URI for serving traffic"
+}
+
+output "scheduler_id" {
+  value       = google_cloud_scheduler_job.job.id
+  description = "Cloud Scheduler job ID"
+}
+
+output "eventarc_trigger_id" {
+  value       = [for e in google_eventarc_trigger.default : e.id]
+  description = "Eventarc trigger ID"
 }
