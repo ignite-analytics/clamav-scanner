@@ -44,6 +44,11 @@ output "scheduler_id" {
 }
 
 output "eventarc_trigger_id" {
-  value       = [for e in google_eventarc_trigger.default : e.id]
+  value       = [for e in google_eventarc_trigger.trigger : e.id]
   description = "Eventarc trigger ID"
+}
+
+output "scan_buckets" {
+  value       = [for s in var.scan_config : s.bucket_name]
+  description = "List of buckets to scan"
 }

@@ -1,5 +1,5 @@
 locals {
-  storage = ["${var.name}-mirror", "${var.name}-quarantine"]
+  storage = [var.storage.mirror_bucket, var.storage.quarantine_bucket]
 }
 
 #  https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_key_ring
@@ -35,8 +35,8 @@ data "google_storage_project_service_account" "gcs_account" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_kms_crypto_key_iam
 resource "google_kms_crypto_key_iam_member" "crypto_key" {
   crypto_key_id = google_kms_crypto_key.crypto_key.id
-  role          = "roles/cloudkms.cryptoKeyEncrypter"
-  member        = "serviceAccount:${data.google_storage_project_service_account.gcs_account.email_address}"
+  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  member        = data.google_storage_project_service_account.gcs_account.member
 
   depends_on = [google_kms_crypto_key.crypto_key]
 }

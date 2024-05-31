@@ -18,18 +18,37 @@ resource "google_cloud_run_v2_service" "default" {
           memory = "4Gi"
         }
       }
+
       ports {
         container_port = var.port
       }
 
+      startup_probe {
+        initial_delay_seconds = 60
+        timeout_seconds       = 10
+        period_seconds        = 10
+        failure_threshold     = 30
+        http_get {
+          path = "/health"
+          port = 1337
+        }
+      }
+
+      liveness_probe {
+        http_get {
+          path = "/health"
+          port = 1337
+        }
+      }
+
       env {
         name  = "MIRROR_BUCKET"
-        value = "${var.name}-mirror"
+        value = var.storage.mirror_bucket
       }
 
       env {
         name  = "QUARANTINE_BUCKET"
-        value = "${var.name}-quarantine"
+        value = var.storage.quarantine_bucket
       }
 
       env {

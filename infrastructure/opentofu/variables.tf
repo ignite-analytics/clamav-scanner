@@ -28,7 +28,6 @@ variable "sa_description" {
 variable "keyring_location" {
   description = "Location of the keyring"
   type        = string
-  default     = "europe"
 }
 
 variable "crypto_key_rotation_period" {
@@ -40,13 +39,11 @@ variable "crypto_key_rotation_period" {
 variable "storage" {
   description = "ClamAv Scanner storage configuration"
   type = object({
-    log_bucket = string
-    location   = string
+    mirror_bucket     = string
+    quarantine_bucket = string
+    log_bucket        = string
+    location          = string
   })
-  default = {
-    log_bucket = "my-log-bucket"
-    location   = "EU"
-  }
 }
 
 variable "image" {
@@ -55,17 +52,12 @@ variable "image" {
     repository = string
     tag        = string
   })
-  default = {
-    repository = "gcr.io/my-project/clamav-scanner"
-    tag        = "0.2.1"
-  }
 }
 
 variable "port" {
   description = "Port to expose the service on"
   type        = number
   default     = 1337
-
 }
 
 variable "schedule" {
@@ -74,10 +66,6 @@ variable "schedule" {
     cron     = string
     timezone = string
   })
-  default = {
-    cron     = "37 */2 * * *"
-    timezone = "Europe/Oslo"
-  }
 }
 
 variable "scan_config" {
@@ -86,5 +74,4 @@ variable "scan_config" {
     bucket_name = string
     location    = string
   }))
-  default = []
 }
