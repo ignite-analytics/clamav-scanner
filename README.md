@@ -38,8 +38,12 @@ There are 4 endpoints available:
 ### Deployment
 
 There are two ways to deploy this service and both examples are located in `infrastructure` directory:
-- Pulumi Typescript app for Cloud Run deployment
 - Helm3 chart for GKE deployment
+- OpenTofu module for Cloud Run deployment
+- Pulumi Typescript app for Cloud Run deployment
+
+> [!IMPORTANT]
+> Cloud Run supports only images from Artifact Registry and Docker Hub. ATM we only provide pre-build images as GitHub package which works fine for GKE. If you want to deploy on Cloud Run, you need to build the image and push it to Artifact Registry.
 
 ## Issues, Features, Feedback
 
