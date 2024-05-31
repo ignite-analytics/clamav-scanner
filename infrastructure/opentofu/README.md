@@ -19,8 +19,8 @@ is to configure your variables in file `variables.tf` and run `tofu apply`.
 | Name | Version |
 |------|---------|
 | terraform | >= 1.7 |
-| google | >= 5.0 |
-| google-beta | >= 5.0 |
+| google | >= 5.0, < 6.0 |
+| google-beta | >= 5.0, < 6.0 |
 
 ## Providers
 
