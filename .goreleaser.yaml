@@ -55,3 +55,7 @@ changelog:
       order: 3
     - title: Other
       order: 999
+  filters:
+    exclude:
+      - "^Merge" # exclude merge commits
+
