@@ -12,7 +12,7 @@
 	},
 	"dependencies": {
 		"@pulumi/gcp": "^7.27.0",
-		"@pulumi/pulumi": "^3.119.0",
+		"@pulumi/pulumi": "^3.120.0",
 		"gcp-pac": "^1.9.11"
 	},
 	"devDependencies": {
