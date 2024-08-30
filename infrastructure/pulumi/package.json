@@ -13,7 +13,7 @@
 	"dependencies": {
 		"@pulumi/gcp": "^7.38.0",
 		"@pulumi/pulumi": "^3.130.0",
-		"gcp-pac": "^1.9.13"
+		"gcp-pac": "^1.9.14"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.3.17",
