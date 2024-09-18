@@ -20,11 +20,9 @@ const createCloudRunService = new gcp.cloudrunv2.Service('default', {
 						memory: '4Gi'
 					}
 				},
-				ports: [
-					{
-						containerPort: service.port
-					}
-				],
+				ports: {
+					containerPort: service.port
+				},
 				envs: [
 					{
 						name: 'MIRROR_BUCKET',
