@@ -6,7 +6,7 @@ updates:
       - dependabot
       - actions
     schedule:
-      interval: daily
+      interval: weekly
 
   - package-ecosystem: gomod
     directory: /
@@ -14,7 +14,7 @@ updates:
       - dependabot
       - go
     schedule:
-      interval: daily
+      interval: weekly
 
   - package-ecosystem: npm
     directory: /infrastructure/pulumi
@@ -22,5 +22,5 @@ updates:
       - dependabot
       - npm
     schedule:
-      interval: daily
+      interval: weekly
     versioning-strategy: increase

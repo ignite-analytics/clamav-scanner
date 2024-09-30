@@ -3,7 +3,7 @@ import { cloudRunService } from '../cloudRunService'
 import { name } from '../globalConf'
 
 describe('createCloudRunService', () => {
-	let serviceName = name
+	const serviceName = name
 	it('should have the correct name', (done: () => void) => {
 		cloudRunService.name.apply(name => {
 			expect(name).to.equal(serviceName)

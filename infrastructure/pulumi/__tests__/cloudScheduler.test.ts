@@ -3,7 +3,7 @@ import { cloudScheduler } from '../cloudScheduler'
 import { name } from '../globalConf'
 
 describe('createCloudRunScheduler', () => {
-	let scheduleName = `${name}-update`
+	const scheduleName = `${name}-update`
 
 	it('should have the correct name', done => {
 		cloudScheduler.name.apply(name => {
