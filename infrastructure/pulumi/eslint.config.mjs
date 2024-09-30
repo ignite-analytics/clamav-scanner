@@ -13,6 +13,7 @@ export default tseslint.config({
 		// Add any plugins here
 	},
 	rules: {
-		// Add any rules here
+		'@typescript-eslint/no-unused-vars': 'off',
+		'@typescript-eslint/no-unused-expressions': 'off'
 	}
 })
