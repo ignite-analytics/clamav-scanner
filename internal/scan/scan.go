@@ -8,7 +8,9 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 
+	"cloud.google.com/go/pubsub"
 	"cloud.google.com/go/storage"
 	"github.com/lyimmi/go-clamd"
 )
@@ -19,7 +21,11 @@ type requestBody struct {
 	Bucket string `json:"bucket"`
 }
 
-var performScanFunc = performScan
+var (
+	performScanFunc = performScan
+	topicName       = os.Getenv("PUBSUB_TOPIC")
+	projectId       = os.Getenv("PROJECT_ID")
+)
 
 // Handle is the HTTP handler used to scan files using ClamAV.
 func Handle(quarantineBucket string) http.HandlerFunc {
@@ -47,21 +53,21 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 			return
 		}
 
-		resultMsg := "No threats found"
+		resultMsg := "NO_THREAT"
 		if !safe {
-			resultMsg = "Threat found"
+			resultMsg = "THREAT"
 		}
 
 		log.Printf("Scan completed for %s: %s\n", reqBody.Name, resultMsg)
 
+		// Respond to the HTTP request with the scan result
 		w.WriteHeader(http.StatusOK)
-		if err := json.NewEncoder(w).Encode(map[string]string{
+		json.NewEncoder(w).Encode(map[string]string{
 			"message": "Scan completed for " + reqBody.Name,
 			"result":  resultMsg,
-		}); err != nil {
-			http.Error(w, "Failed to encode response", http.StatusInternalServerError)
-		}
+		})
 
+		go publishScanResultToPubSub(context.Background(), reqBody.Bucket, reqBody.Name, resultMsg)
 	}
 }
 
@@ -89,6 +95,37 @@ func performScan(ctx context.Context, bucketName, fileName, quarantineBucket str
 	}
 
 	return safe, err
+}
+
+func publishScanResultToPubSub(ctx context.Context, bucketName, fileName, resultMsg string) {
+	pubsubClient, err := pubsub.NewClient(ctx, projectId)
+	if err != nil {
+		log.Printf("Failed to create Pub/Sub client: %v", err)
+		return
+	}
+	defer pubsubClient.Close()
+
+	topic := pubsubClient.Topic(topicName)
+	resultMessage := map[string]string{
+		"file":   fileName,
+		"bucket": bucketName,
+		"result": resultMsg,
+	}
+	messageData, err := json.Marshal(resultMessage)
+	if err != nil {
+		log.Printf("Failed to marshal result message: %v", err)
+		return
+	}
+
+	_, err = topic.Publish(ctx, &pubsub.Message{
+		Data: messageData,
+		Attributes: map[string]string{
+			"bucketName": bucketName,
+		},
+	}).Get(ctx)
+	if err != nil {
+		log.Printf("Failed to publish result to Pub/Sub: %v", err)
+	}
 }
 
 func fetchFileFromBucket(ctx context.Context, client *storage.Client, bucketName, fileName string) ([]byte, error) {

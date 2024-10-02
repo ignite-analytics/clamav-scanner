@@ -36,3 +36,10 @@ export const labels = {
 	manager: 'pulumi',
 	service: name
 }
+
+export const pubsub = {
+	topic: `${name}-topic`,
+	subscription: `${name}-subscription`,
+	subscribers: ['<SERVICE_NAME>@<YOUR_PROJECT_ID>.iam.gserviceaccount.com'],
+	gcsServiceAccount: 'service-<YOUR_PROJECT_NUMBER>@gcp-sa-pubsub.iam.gserviceaccount.com'
+}

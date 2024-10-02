@@ -11,8 +11,8 @@
 		"up": "pulumi up --stack production --color always --yes"
 	},
 	"dependencies": {
-		"@pulumi/gcp": "^8.3.1",
-		"@pulumi/pulumi": "^3.134.1",
+		"@pulumi/gcp": "^8.4.1",
+		"@pulumi/pulumi": "^3.135.0",
 		"gcp-pac": "^1.9.15"
 	},
 	"devDependencies": {

@@ -39,7 +39,7 @@ func TestHandle(t *testing.T) {
 			expectedStatus: http.StatusOK,
 			expectedResponse: map[string]string{
 				"message": "Scan completed for " + TestFileName,
-				"result":  "No threats found",
+				"result":  "NO_THREAT",
 			},
 		},
 		{
@@ -50,7 +50,7 @@ func TestHandle(t *testing.T) {
 			expectedStatus: http.StatusOK,
 			expectedResponse: map[string]string{
 				"message": "Scan completed for " + TestFileName,
-				"result":  "Threat found",
+				"result":  "THREAT",
 			},
 		},
 		{

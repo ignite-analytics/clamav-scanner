@@ -5,6 +5,7 @@ go 1.22
 toolchain go1.22.5
 
 require (
+	cloud.google.com/go/pubsub v1.43.0
 	cloud.google.com/go/storage v1.43.0
 	github.com/fsouza/fake-gcs-server v1.50.0
 	github.com/lyimmi/go-clamd v1.0.4
@@ -19,7 +20,6 @@ require (
 	cloud.google.com/go/auth/oauth2adapt v0.2.4 // indirect
 	cloud.google.com/go/compute/metadata v0.5.1 // indirect
 	cloud.google.com/go/iam v1.2.1 // indirect
-	cloud.google.com/go/pubsub v1.43.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
