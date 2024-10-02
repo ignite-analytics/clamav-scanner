@@ -62,10 +62,14 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 
 		// Respond to the HTTP request with the scan result
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(map[string]string{
+		if err := json.NewEncoder(w).Encode(map[string]string{
 			"message": "Scan completed for " + reqBody.Name,
 			"result":  resultMsg,
-		})
+		}); err != nil {
+			log.Printf("Error encoding JSON response: %v", err)
+			http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+			return
+		}
 
 		go publishScanResultToPubSub(context.Background(), reqBody.Bucket, reqBody.Name, resultMsg)
 	}
