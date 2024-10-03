@@ -1,3 +1,5 @@
 {
-	"all": "mandatory"
+	"all": "mandatory",
+	"pubsub-require-topic-cmek": "advisory",
+	"pubsub-require-subscription-dead-letter-topic": "advisory"
 }

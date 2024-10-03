@@ -1,4 +1,4 @@
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/cloud_run_v2_service
 resource "google_cloud_run_v2_service" "default" {
   name     = var.name
   project  = var.project_id
@@ -55,6 +55,16 @@ resource "google_cloud_run_v2_service" "default" {
         name  = "LISTEN_ADDRESS"
         value = ":${var.port}"
       }
+
+      env {
+        name  = "PUBSUB_TOPIC"
+        value = var.pubsub.topic
+      }
+
+      env {
+        name  = "PROJECT_ID"
+        value = var.project_id
+      }
     }
 
     max_instance_request_concurrency = 20
@@ -64,10 +74,7 @@ resource "google_cloud_run_v2_service" "default" {
     }
   }
 
-  labels = {
-    manager = "opentofu",
-    service = var.name
-  }
+  labels = var.labels
 
   traffic {
     type    = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
@@ -75,7 +82,7 @@ resource "google_cloud_run_v2_service" "default" {
   }
 }
 
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service_iam#google_cloud_run_v2_service_iam_member
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/cloud_run_v2_service_iam#google_cloud_run_v2_service_iam_member
 resource "google_cloud_run_v2_service_iam_member" "member" {
   project  = var.project_id
   location = var.region

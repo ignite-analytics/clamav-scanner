@@ -18,15 +18,14 @@ is to configure your variables in file `variables.tf` and run `tofu apply`.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 1.7 |
-| google | >= 5.0, < 6.0 |
-| google-beta | >= 5.0, < 6.0 |
+| google | >= 6.0, < 7.0 |
+| google-beta | >= 6.0, < 7.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | 5.31.1 |
+| google | 6.5.0 |
 
 ## Modules
 
@@ -36,20 +35,30 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [google_cloud_run_v2_service.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service) | resource |
-| [google_cloud_run_v2_service_iam_member.member](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service_iam_member) | resource |
-| [google_cloud_scheduler_job.job](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_scheduler_job) | resource |
-| [google_eventarc_trigger.trigger](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/eventarc_trigger) | resource |
-| [google_kms_crypto_key.crypto_key](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key) | resource |
-| [google_kms_crypto_key_iam_member.crypto_key](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_crypto_key_iam_member) | resource |
-| [google_kms_key_ring.keyring](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/kms_key_ring) | resource |
-| [google_project_iam_member.gcs_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
-| [google_project_iam_member.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
-| [google_service_account.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
-| [google_storage_bucket.bucket](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket) | resource |
-| [google_storage_bucket_iam_member.member](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
-| [google_storage_bucket_iam_member.trigger](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
-| [google_storage_project_service_account.gcs_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/storage_project_service_account) | data source |
+| [google_cloud_run_v2_service.default](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/cloud_run_v2_service) | resource |
+| [google_cloud_run_v2_service_iam_member.member](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/cloud_run_v2_service_iam_member) | resource |
+| [google_cloud_scheduler_job.job](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/cloud_scheduler_job) | resource |
+| [google_eventarc_trigger.trigger](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/eventarc_trigger) | resource |
+| [google_kms_crypto_key.crypto_key](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/kms_crypto_key) | resource |
+| [google_kms_crypto_key_iam_member.crypto_key](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/kms_crypto_key_iam_member) | resource |
+| [google_kms_key_ring.keyring](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/kms_key_ring) | resource |
+| [google_project_iam_member.gcs_account](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/project_iam_member) | resource |
+| [google_project_iam_member.service_account](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/project_iam_member) | resource |
+| [google_pubsub_subscription.dead-letter](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_subscription) | resource |
+| [google_pubsub_subscription.default](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_subscription) | resource |
+| [google_pubsub_subscription_iam_member.dead-letter](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_subscription_iam_member) | resource |
+| [google_pubsub_subscription_iam_member.default](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_subscription_iam_member) | resource |
+| [google_pubsub_subscription_iam_member.subscriber](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_subscription_iam_member) | resource |
+| [google_pubsub_topic.dead-letter](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_topic) | resource |
+| [google_pubsub_topic.default](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_topic) | resource |
+| [google_pubsub_topic_iam_member.dead-letter](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_topic_iam_member) | resource |
+| [google_pubsub_topic_iam_member.default](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/pubsub_topic_iam_member) | resource |
+| [google_service_account.service_account](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/service_account) | resource |
+| [google_storage_bucket.bucket](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/storage_bucket) | resource |
+| [google_storage_bucket_iam_member.member](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/storage_bucket_iam_member) | resource |
+| [google_storage_bucket_iam_member.trigger](https://registry.terraform.io/providers/opentofu/google/latest/docs/resources/storage_bucket_iam_member) | resource |
+| [google_project.project](https://registry.terraform.io/providers/opentofu/google/latest/docs/data-sources/project) | data source |
+| [google_storage_project_service_account.gcs_account](https://registry.terraform.io/providers/opentofu/google/latest/docs/data-sources/storage_project_service_account) | data source |
 
 ## Inputs
 
@@ -58,9 +67,11 @@ No modules.
 | crypto\_key\_rotation\_period | The rotation period of the key. Default is 90 days | `string` | no |
 | image | ClamAV Scanner image configuration | <pre>object({<br>    repository = string<br>    tag        = string<br>  })</pre> | yes |
 | keyring\_location | Location of the keyring | `string` | yes |
+| labels | ClamAV Scanner labels | `map(string)` | no |
 | name | Service account ID | `string` | yes |
 | port | Port to expose the service on | `number` | no |
 | project\_id | The project ID to deploy resources to | `string` | yes |
+| pubsub | ClamAV Scanner Pub/Sub configuration | <pre>object({<br>    topic        = string<br>    subscription = string<br>    subscribers  = optional(list(string))<br>  })</pre> | yes |
 | region | The region to deploy resources to | `string` | yes |
 | sa\_description | Service Account description | `string` | no |
 | sa\_display\_name | Service Account display name | `string` | no |

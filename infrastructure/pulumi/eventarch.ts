@@ -7,7 +7,7 @@ import { cloudRunService } from './cloudRunService'
 interface Events {
 	name: string
 	location: string
-	id: pulumi.Output<string>
+	trigger: pulumi.Output<string>
 }
 
 const events: Events[] = []
@@ -43,7 +43,7 @@ event.buckets.forEach(bucket => {
 		role: 'roles/storage.objectUser',
 		member: serviceAccount.member
 	})
-	events.push({ name: `${bucket.name}-scan`, location: bucket.location, id: trigger.id })
+	events.push({ name: `${bucket.name}-scan`, location: bucket.location, trigger: trigger.id })
 })
 
 export const eventTrigger = events

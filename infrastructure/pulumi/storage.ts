@@ -3,7 +3,7 @@ import * as gcp from '@pulumi/gcp'
 import { name, project, storage, labels, kms } from './globalConf'
 import { serviceAccount } from './serviceAccount'
 
-const gcsAccount = gcp.storage.getProjectServiceAccount({
+export const gcsAccount = gcp.storage.getProjectServiceAccount({
 	project: project
 })
 
@@ -25,7 +25,7 @@ const clamavCryptoKey = new gcp.kms.CryptoKey(
 	}
 )
 
-const gcsAccountIAMMember = new gcp.kms.CryptoKeyIAMMember(
+const gcsAccountKmsIamMember = new gcp.kms.CryptoKeyIAMMember(
 	'default',
 	{
 		cryptoKeyId: clamavCryptoKey.id,
@@ -36,6 +36,12 @@ const gcsAccountIAMMember = new gcp.kms.CryptoKeyIAMMember(
 		dependsOn: [clamavCryptoKey]
 	}
 )
+
+const gcsAccountPubsubIamMember = new gcp.projects.IAMMember('pubsub', {
+	project: project,
+	role: 'roles/pubsub.publisher',
+	member: gcsAccount.then(gcsAccount => gcsAccount.member)
+})
 
 const createStorage = [storage.mirrorBucket, storage.quarantineBucket]
 

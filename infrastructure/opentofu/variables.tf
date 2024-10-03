@@ -75,3 +75,21 @@ variable "scan_config" {
     location    = string
   }))
 }
+
+variable "pubsub" {
+  description = "ClamAV Scanner Pub/Sub configuration"
+  type = object({
+    topic        = string
+    subscription = string
+    subscribers  = optional(list(string))
+  })
+}
+
+variable "labels" {
+  description = "ClamAV Scanner labels"
+  type        = map(string)
+  default = {
+    manager = "opentofu"
+    service = "clamav-scanner"
+  }
+}

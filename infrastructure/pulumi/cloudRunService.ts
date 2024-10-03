@@ -1,5 +1,5 @@
 import * as gcp from '@pulumi/gcp'
-import { name, project, region, image, service, storage, labels } from './globalConf'
+import { name, project, region, image, service, storage, labels, pubsub } from './globalConf'
 import { serviceAccount } from './serviceAccount'
 
 const createCloudRunService = new gcp.cloudrunv2.Service('default', {
@@ -35,6 +35,14 @@ const createCloudRunService = new gcp.cloudrunv2.Service('default', {
 					{
 						name: 'LISTEN_ADDRESS',
 						value: ':1337'
+					},
+					{
+						name: 'PROJECT_ID',
+						value: project
+					},
+					{
+						name: 'PUBSUB_TOPIC',
+						value: pubsub.topic
 					}
 				]
 			}
