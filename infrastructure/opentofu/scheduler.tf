@@ -1,4 +1,4 @@
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_scheduler_job
+# https://search.opentofu.org/provider/hashicorp/google/latest/docs/resources/cloud_scheduler_job
 resource "google_cloud_scheduler_job" "job" {
   name             = "${var.name}-update"
   description      = "ClamAV Scanner scheduled update job"

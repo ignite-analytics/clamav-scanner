@@ -55,7 +55,7 @@ const subscriptionDeadLetter = new gcp.pubsub.Subscription(
 )
 
 const deadLetterSubscriptionIam = new gcp.pubsub.SubscriptionIAMMember(`${subscriptionDeadLetter.name}`, {
-	subscription: subscription.name,
+	subscription: subscriptionDeadLetter.name,
 	role: 'roles/pubsub.subscriber',
 	member: `serviceAccount:${pubsub.gcsServiceAccount}`
 })

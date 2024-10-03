@@ -40,7 +40,7 @@ const gcsAccountKmsIamMember = new gcp.kms.CryptoKeyIAMMember(
 const gcsAccountPubsubIamMember = new gcp.projects.IAMMember('pubsub', {
 	project: project,
 	role: 'roles/pubsub.publisher',
-	member: gcsAccount.then(gcsAccount => `serviceAccount:${gcsAccount.emailAddress}`)
+	member: gcsAccount.then(gcsAccount => gcsAccount.member)
 })
 
 const createStorage = [storage.mirrorBucket, storage.quarantineBucket]
