@@ -21,10 +21,7 @@ resource "google_kms_crypto_key" "crypto_key" {
   rotation_period = "7776000s"
   purpose         = "ENCRYPT_DECRYPT"
 
-  labels = {
-    manager = "opentofu",
-    service = var.name
-  }
+  labels = var.labels
 
   lifecycle {
     prevent_destroy = true
