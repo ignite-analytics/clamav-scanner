@@ -71,7 +71,7 @@ jobs:
           push-to-registry: true
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.25.0
+        uses: aquasecurity/trivy-action@0.27.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:latest
           format: sarif
