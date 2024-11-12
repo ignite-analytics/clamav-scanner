@@ -71,6 +71,11 @@ jobs:
       - name: Verify dependency tree
         run: go mod verify
 
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@v2.21.4
+        with:
+          args: ./...
+
       - name: Run tests
         run: go test -v ./...
 
