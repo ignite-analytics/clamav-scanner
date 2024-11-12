@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
 	"os/signal"
+	"regexp"
 	"syscall"
 	"time"
 
@@ -15,6 +15,7 @@ import (
 	"github.com/ignite-analytics/clamav-scanner/internal/mirror"
 	"github.com/ignite-analytics/clamav-scanner/internal/scan"
 	"github.com/ignite-analytics/clamav-scanner/internal/update"
+	"github.com/ignite-analytics/clamav-scanner/internal/utils"
 	"golang.org/x/net/context"
 )
 
@@ -40,10 +41,13 @@ func main() {
 
 	// Create new HTTP server
 	server := &http.Server{
-		Addr: listenAddress,
+		Addr:         listenAddress,
+		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  30 * time.Second,
 	}
 
-	setupHandlers()
+	setupHandlers(client)
 
 	// Setup channel for listening to signals and server errors
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
@@ -74,6 +78,12 @@ func bootstrap(ctx context.Context, client *storage.Client) {
 		log.Fatal("Please specify ClamAV mirror bucket")
 	}
 
+	var validBucketName = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+
+	if !validBucketName.MatchString(mirrorBucket) {
+		log.Fatalf("Invalid bucket name: %s", mirrorBucket)
+	}
+
 	// Check if the bucket contains any objects
 	itr := client.Bucket(mirrorBucket).Objects(ctx, nil)
 	if _, err := itr.Next(); err != nil {
@@ -84,19 +94,15 @@ func bootstrap(ctx context.Context, client *storage.Client) {
 			log.Printf("Failed to update CVDs: %v", err)
 		}
 
-		gsutilCmd := exec.Command("gsutil", "-m", "-q", "rsync", "-d", "-c", "-r", "/clamav/cvds",
-			fmt.Sprintf("gs://%s/", mirrorBucket))
-		if err := gsutilCmd.Run(); err != nil {
+		if err := utils.SyncLocalToBucket(ctx, client, "/clamav/cvds", mirrorBucket); err != nil {
 			log.Fatalf("Failed to upload initial CVDs to mirror: %v", err)
 		}
 	}
 
 	log.Println("Downloading and updating CVDs from mirror...")
 
-	cmd := exec.Command("gsutil", "-m", "rsync", "-c", "-r",
-		fmt.Sprintf("gs://%s/", mirrorBucket), "/var/lib/clamav")
-	if err := cmd.Run(); err != nil {
-		log.Fatalf("Failed to synchronize CVDs: %v", err)
+	if err := utils.SyncBucketToLocal(ctx, client, mirrorBucket, "/var/lib/clamav"); err != nil {
+		log.Fatal("Failed to synchronize CVDs")
 	}
 }
 
@@ -112,9 +118,9 @@ func reloadServices() {
 	}
 }
 
-func setupHandlers() {
+func setupHandlers(client *storage.Client) {
 	http.HandleFunc("/mirror/", mirror.Handle(mirrorBucket))
-	http.HandleFunc("/update", update.Handle(mirrorBucket))
+	http.HandleFunc("/update", update.Handle(mirrorBucket, client))
 	http.HandleFunc("/scan", scan.Handle(quarantineBucket))
 	http.HandleFunc("/health", health.Handle())
 }
