@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -84,8 +83,6 @@ func bootstrap(ctx context.Context, client *storage.Client) {
 	if !validBucketName.MatchString(mirrorBucket) {
 		log.Fatalf("Invalid bucket name: %s", mirrorBucket)
 	}
-
-	mirrorBucket = fmt.Sprintf("gs://%s/", mirrorBucket)
 
 	// Check if the bucket contains any objects
 	itr := client.Bucket(mirrorBucket).Objects(ctx, nil)
