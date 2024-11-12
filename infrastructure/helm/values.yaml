@@ -18,8 +18,8 @@ podAnnotations: {}
 
 podSecurityContext:
   runAsUser: 100
-  runAsGroup: 103
-  fsGroup: 103
+  runAsGroup: 102
+  fsGroup: 102
   fsGroupChangePolicy: "OnRootMismatch"
   seccompProfile:
     type: RuntimeDefault
