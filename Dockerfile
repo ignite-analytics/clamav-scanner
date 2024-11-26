@@ -1,4 +1,4 @@
-FROM debian:12.7-slim
+FROM debian:12.8-slim
 
 COPY clamav-scanner /usr/bin/clamav-scanner
 COPY config/* /tmp
@@ -25,7 +25,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 USER clamav
 
-ENV PATH "$PATH:/var/lib/clamav/.local/bin/"
+ENV PATH="$PATH:/var/lib/clamav/.local/bin/"
 
 RUN pipx install cvdupdate && \
     cvdupdate config set -c /clamav/config.json -d /clamav/cvds -l /clamav/log
