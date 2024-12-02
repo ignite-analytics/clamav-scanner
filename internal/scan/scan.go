@@ -46,6 +46,11 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 
 		log.Printf("Received scan request for bucket: %s, file: %s\n", reqBody.Bucket, reqBody.Name)
 
+		// Acknowledge the Pub/Sub message before it's proccessed
+		if pubsubMsg, ok := r.Context().Value("pubsubMessage").(*pubsub.Message); ok {
+			pubsubMsg.Ack()
+		}
+
 		safe, err := performScanFunc(ctx, reqBody.Bucket, reqBody.Name, quarantineBucket)
 		if err != nil {
 			log.Printf("Error scanning file: %v", err)
