@@ -18,7 +18,8 @@ const createCloudRunScheduler = new gcp.cloudscheduler.Job('default', {
 		httpMethod: 'POST',
 		uri: pulumi.interpolate`${cloudRunService.uri}/update`,
 		oidcToken: {
-			serviceAccountEmail: serviceAccount.email
+			serviceAccountEmail: serviceAccount.email,
+			audience: cloudRunService.uri
 		}
 	}
 })

@@ -16,6 +16,7 @@ resource "google_cloud_scheduler_job" "job" {
 
     oidc_token {
       service_account_email = google_service_account.service_account.email
+      audience              = google_cloud_run_v2_service.default.uri
     }
   }
 }
