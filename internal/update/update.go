@@ -14,22 +14,27 @@ import (
 // Handle is the HTTP handler used to trigger ClamAV updates.
 func Handle(mirrorBucket string, client *storage.Client) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
+		if r.Method != http.MethodPost {
 			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 			return
 		}
 
-		if err := update(); err != nil {
-			http.Error(w, "Failed to update CVDs", http.StatusInternalServerError)
-			return
-		}
+		w.WriteHeader(http.StatusAccepted)
+		fmt.Fprintln(w, "Update request accepted. Processing in the background.")
 
-		if err := upload(context.Background(), client, mirrorBucket); err != nil {
-			http.Error(w, "Failed to upload CVDs", http.StatusInternalServerError)
-			return
-		}
+		go func() {
+			if err := update(); err != nil {
+				log.Printf("Error updating CVDs: %v", err)
+				return
+			}
 
-		fmt.Fprintln(w, "Update completed.")
+			if err := upload(context.Background(), client, mirrorBucket); err != nil {
+				log.Printf("Error uploading CVDs to GCS: %v", err)
+				return
+			}
+
+			log.Println("Update and upload completed successfully.")
+		}()
 	}
 }
 
