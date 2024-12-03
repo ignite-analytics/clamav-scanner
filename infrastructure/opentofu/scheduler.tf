@@ -11,11 +11,12 @@ resource "google_cloud_scheduler_job" "job" {
   }
 
   http_target {
-    http_method = "GET"
+    http_method = "POST"
     uri         = "${google_cloud_run_v2_service.default.uri}/update"
 
     oidc_token {
       service_account_email = google_service_account.service_account.email
+      audience              = google_cloud_run_v2_service.default.uri
     }
   }
 }

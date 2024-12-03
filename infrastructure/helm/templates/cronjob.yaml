@@ -24,7 +24,7 @@ spec:
               imagePullPolicy: IfNotPresent
               args:
                 - -X
-                - GET
+                - POST
                 - http://{{ include "clamav-scanner.fullname" . }}/update
               envFrom:
                 {{- if (not (empty .Values.extraConfigMap)) }}
