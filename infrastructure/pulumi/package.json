@@ -27,7 +27,7 @@
 		"eslint": "^9.16.0",
 		"eslint-plugin-jsonc": "^2.18.2",
 		"eslint-plugin-prettier": "^5.2.1",
-		"mocha": "^10.8.2",
+		"mocha": "^11.0.1",
 		"prettier": "^3.4.1",
 		"prettier-eslint": "^16.3.0",
 		"ts-node": "^10.9.2",
