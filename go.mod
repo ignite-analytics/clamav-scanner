@@ -1,6 +1,7 @@
 module github.com/ignite-analytics/clamav-scanner
 
-go 1.22.7
+go 1.22.9
+
 toolchain go1.23.2
 
 require (
