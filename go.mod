@@ -2,8 +2,6 @@ module github.com/ignite-analytics/clamav-scanner
 
 go 1.24
 
-toolchain go1.24.0
-
 require (
 	cloud.google.com/go/pubsub v1.47.0
 	cloud.google.com/go/storage v1.50.0
