@@ -3,7 +3,7 @@ resource "google_cloud_run_v2_service" "default" {
   name     = var.name
   project  = var.project_id
   location = var.region
-  ingress  = "INGRESS_TRAFFIC_ALL"
+  ingress  = "INGRESS_TRAFFIC_INTERNAL_ONLY"
 
   template {
     service_account       = google_service_account.service_account.email

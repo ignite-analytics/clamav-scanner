@@ -43,8 +43,8 @@ func main() {
 	server := &http.Server{
 		Addr:         listenAddress,
 		ReadTimeout:  15 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		IdleTimeout:  30 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		IdleTimeout:  120 * time.Second,
 	}
 
 	setupHandlers(client)
