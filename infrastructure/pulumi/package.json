@@ -11,8 +11,8 @@
 		"up": "pulumi up --stack production --color always --yes"
 	},
 	"dependencies": {
-		"@pulumi/gcp": "^8.19.1",
-		"@pulumi/pulumi": "^3.150.0",
+		"@pulumi/gcp": "^8.20.0",
+		"@pulumi/pulumi": "^3.152.0",
 		"gcp-pac": "^1.10.1"
 	},
 	"devDependencies": {
@@ -20,15 +20,15 @@
 		"@types/chai": "^4.3.20",
 		"@types/eslint__js": "^8.42.3",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.13.4",
+		"@types/node": "^22.13.5",
 		"@typescript-eslint/eslint-plugin": "^8.24.1",
 		"@typescript-eslint/parser": "^8.24.1",
 		"chai": "^4.5.0",
-		"eslint": "^9.20.1",
+		"eslint": "^9.21.0",
 		"eslint-plugin-jsonc": "^2.19.1",
 		"eslint-plugin-prettier": "^5.2.3",
 		"mocha": "^11.1.0",
-		"prettier": "^3.5.1",
+		"prettier": "^3.5.2",
 		"prettier-eslint": "^16.3.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.7.3",
