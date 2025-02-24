@@ -1,5 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": true,
+    "description": "helm values schema for clamav-scanner service",
     "properties": {
         "affinity": {
             "properties": {},
@@ -301,5 +303,6 @@
             "type": "object"
         }
     },
+    "title": "clamav-scanner service",
     "type": "object"
 }
