@@ -136,8 +136,8 @@ jobs:
       - name: Check values schema json
         uses: losisin/helm-values-schema-json-action@v1
         with:
-          input: infrastructure/helm/values.yaml
-          output: infrastructure/helm/values.schema.json
+          working-directory: infrastructure/helm
+          fail-on-diff: true
           git-push: false
 
       - name: Lint helm chart

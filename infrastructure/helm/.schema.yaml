@@ -1,0 +1,12 @@
+input:
+  - 'values.yaml'
+
+draft: 2020
+indent: 4
+output: values.schema.json
+
+schemaRoot:
+  title: clamav-scanner service
+  description: helm values schema for clamav-scanner service
+  additionalProperties: true
+  
