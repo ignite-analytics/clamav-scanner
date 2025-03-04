@@ -10,7 +10,7 @@ require (
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/net v0.35.0
-	google.golang.org/api v0.222.0
+	google.golang.org/api v0.223.0
 )
 
 require (
