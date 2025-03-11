@@ -72,7 +72,7 @@ jobs:
         run: go mod verify
 
       - name: Run Gosec Security Scanner
-        uses: securego/gosec@a9eb1c96fae2533bee92dc08d311cd36d4ec2493 # v2.22.1
+        uses: securego/gosec@v2.22.2
         with:
           args: ./...
 
