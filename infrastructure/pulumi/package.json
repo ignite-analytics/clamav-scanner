@@ -11,20 +11,20 @@
 		"up": "pulumi up --stack production --color always --yes"
 	},
 	"dependencies": {
-		"@pulumi/gcp": "^8.20.0",
-		"@pulumi/pulumi": "^3.153.1",
-		"gcp-pac": "^1.10.1"
+		"@pulumi/gcp": "^8.21.0",
+		"@pulumi/pulumi": "^3.154.0",
+		"gcp-pac": "^1.10.2"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.20.0",
+		"@eslint/js": "^9.22.0",
 		"@types/chai": "^4.3.20",
 		"@types/eslint__js": "^9.14.0",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.13.9",
-		"@typescript-eslint/eslint-plugin": "^8.26.0",
-		"@typescript-eslint/parser": "^8.26.0",
+		"@types/node": "^22.13.10",
+		"@typescript-eslint/eslint-plugin": "^8.26.1",
+		"@typescript-eslint/parser": "^8.26.1",
 		"chai": "^4.5.0",
-		"eslint": "^9.21.0",
+		"eslint": "^9.22.0",
 		"eslint-plugin-jsonc": "^2.19.1",
 		"eslint-plugin-prettier": "^5.2.3",
 		"mocha": "^11.1.0",
@@ -32,6 +32,6 @@
 		"prettier-eslint": "^16.3.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.8.2",
-		"typescript-eslint": "^8.26.0"
+		"typescript-eslint": "^8.26.1"
 	}
 }
