@@ -29,7 +29,11 @@ func Handle(mirrorBucket string) http.HandlerFunc {
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
-		defer client.Close()
+		defer func() {
+			if err := client.Close(); err != nil {
+				log.Printf("Failed to close storage client: %v", err)
+			}
+		}()
 
 		bucketHandler := client.Bucket(mirrorBucket)
 		storageProxy := NewStorageProxy(bucketHandler)
@@ -60,7 +64,11 @@ func (proxy *StorageProxy) downloadBlob(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 
-	defer reader.Close()
+	defer func() {
+		if err := reader.Close(); err != nil {
+			log.Printf("Failed to close reader: %v", err)
+		}
+	}()
 	bufferedReader := bufio.NewReader(reader)
 	_, err = bufferedReader.WriteTo(w)
 
