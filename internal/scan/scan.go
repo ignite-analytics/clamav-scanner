@@ -42,7 +42,11 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 			http.Error(w, "Bad request", http.StatusBadRequest)
 			return
 		}
-		defer r.Body.Close()
+		defer func() {
+			if err := r.Body.Close(); err != nil {
+				log.Printf("Failed to close request body: %v", err)
+			}
+		}()
 
 		log.Printf("Received scan request for bucket: %s, file: %s\n", reqBody.Bucket, reqBody.Name)
 
@@ -85,7 +89,11 @@ func performScan(ctx context.Context, bucketName, fileName, quarantineBucket str
 	if err != nil {
 		return false, fmt.Errorf("failed to create storage client: %w", err)
 	}
-	defer storageClient.Close()
+	defer func() {
+		if err := storageClient.Close(); err != nil {
+			log.Printf("Failed to close storage client: %v", err)
+		}
+	}()
 
 	fileData, err := fetchFileFromBucket(ctx, storageClient, bucketName, fileName)
 	if err != nil {
@@ -112,7 +120,11 @@ func publishScanResultToPubSub(ctx context.Context, bucketName, fileName, result
 		log.Printf("Failed to create Pub/Sub client: %v", err)
 		return
 	}
-	defer pubsubClient.Close()
+	defer func() {
+		if err := pubsubClient.Close(); err != nil {
+			log.Printf("Failed to close Pub/Sub client: %v", err)
+		}
+	}()
 
 	topic := pubsubClient.Topic(topicName)
 	resultMessage := map[string]string{
@@ -142,7 +154,11 @@ func fetchFileFromBucket(ctx context.Context, client *storage.Client, bucketName
 	if err != nil {
 		return nil, fmt.Errorf("failed to create object reader: %w", err)
 	}
-	defer rc.Close()
+	defer func() {
+		if err := rc.Close(); err != nil {
+			log.Printf("Failed to close object reader: %v", err)
+		}
+	}()
 
 	return io.ReadAll(rc)
 }
