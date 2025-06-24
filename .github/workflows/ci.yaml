@@ -134,7 +134,7 @@ jobs:
           git-push: false
 
       - name: Check values schema json
-        uses: losisin/helm-values-schema-json-action@v1
+        uses: losisin/helm-values-schema-json-action@v2
         with:
           working-directory: infrastructure/helm
           fail-on-diff: true
