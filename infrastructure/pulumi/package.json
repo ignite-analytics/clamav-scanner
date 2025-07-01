@@ -11,27 +11,27 @@
 		"up": "pulumi up --stack production --color always --yes"
 	},
 	"dependencies": {
-		"@pulumi/gcp": "^8.35.0",
-		"@pulumi/pulumi": "^3.178.0",
+		"@pulumi/gcp": "^8.36.0",
+		"@pulumi/pulumi": "^3.181.0",
 		"gcp-pac": "^1.10.2"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.29.0",
+		"@eslint/js": "^9.30.0",
 		"@types/chai": "^4.3.20",
 		"@types/eslint__js": "^9.14.0",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^24.0.3",
-		"@typescript-eslint/eslint-plugin": "^8.35.0",
-		"@typescript-eslint/parser": "^8.35.0",
+		"@types/node": "^24.0.7",
+		"@typescript-eslint/eslint-plugin": "^8.35.1",
+		"@typescript-eslint/parser": "^8.35.1",
 		"chai": "^4.5.0",
-		"eslint": "^9.29.0",
+		"eslint": "^9.30.0",
 		"eslint-plugin-jsonc": "^2.20.1",
-		"eslint-plugin-prettier": "^5.5.0",
-		"mocha": "^11.7.0",
-		"prettier": "^3.6.0",
+		"eslint-plugin-prettier": "^5.5.1",
+		"mocha": "^11.7.1",
+		"prettier": "^3.6.2",
 		"prettier-eslint": "^16.4.2",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.35.0"
+		"typescript-eslint": "^8.35.1"
 	}
 }
