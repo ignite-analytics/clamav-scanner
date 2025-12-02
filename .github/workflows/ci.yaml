@@ -20,7 +20,7 @@ jobs:
       opentofu: ${{ steps.filter.outputs.opentofu }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - uses: dorny/paths-filter@v3.0.2
         id: filter
@@ -46,7 +46,7 @@ jobs:
       VERBOSE: 1
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -91,7 +91,7 @@ jobs:
         working-directory: ./infrastructure/pulumi
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node
         id: node
@@ -125,7 +125,7 @@ jobs:
         working-directory: ./infrastructure/helm
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Check Helm documentation
         uses: losisin/helm-docs-github-action@v1
@@ -161,7 +161,7 @@ jobs:
         working-directory: ./infrastructure/opentofu
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install OpenTofu
         uses: opentofu/setup-opentofu@v1
