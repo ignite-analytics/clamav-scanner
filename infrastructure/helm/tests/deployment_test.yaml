@@ -2,17 +2,20 @@
 suite: Configmap Test
 templates:
   - templates/deployment.yaml
+  - templates/configmap.yaml
 capabilities:
   majorVersion: 1
   minorVersion: 26
 tests:
   - it: should create a deployment
+    template: templates/deployment.yaml
     asserts:
       - isKind:
           of: Deployment
       - hasDocuments:
           count: 1
   - it: should get env from configmap
+    template: templates/deployment.yaml
     asserts:
       - contains:
           path: spec.template.spec.containers[0].envFrom
@@ -32,6 +35,7 @@ tests:
       - isNotNullOrEmpty:
           path: spec.template.spec.containers[0].readinessProbe
   - it: should have a container ports defined
+    template: templates/deployment.yaml
     asserts:
       - contains:
           path: spec.template.spec.containers[0].ports
