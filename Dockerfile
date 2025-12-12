@@ -1,4 +1,4 @@
-FROM debian:12.9-slim
+FROM debian:13.2-slim
 
 COPY clamav-scanner /usr/bin/clamav-scanner
 COPY config/* /tmp

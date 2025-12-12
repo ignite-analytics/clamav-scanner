@@ -1,13 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "additionalProperties": true,
+    "title": "clamav-scanner service",
     "description": "helm values schema for clamav-scanner service",
+    "type": "object",
     "properties": {
         "affinity": {
-            "properties": {},
             "type": "object"
         },
         "autoscaling": {
+            "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean"
@@ -21,10 +22,10 @@
                 "targetMemoryUtilizationPercentage": {
                     "type": "integer"
                 }
-            },
-            "type": "object"
+            }
         },
         "extraConfigMap": {
+            "type": "object",
             "properties": {
                 "LISTEN_ADDRESS": {
                     "type": "string"
@@ -35,13 +36,13 @@
                 "QUARANTINE_BUCKET": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "fullnameOverride": {
             "type": "string"
         },
         "image": {
+            "type": "object",
             "properties": {
                 "digest": {
                     "type": "string"
@@ -52,13 +53,13 @@
                 "repository": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "imagePullSecrets": {
             "type": "array"
         },
         "livenessProbe": {
+            "type": "object",
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
@@ -75,21 +76,19 @@
                 "timeoutSeconds": {
                     "type": "integer"
                 }
-            },
-            "type": "object"
+            }
         },
         "nameOverride": {
             "type": "string"
         },
         "nodeSelector": {
-            "properties": {},
             "type": "object"
         },
         "podAnnotations": {
-            "properties": {},
             "type": "object"
         },
         "podSecurityContext": {
+            "type": "object",
             "properties": {
                 "fsGroup": {
                     "type": "integer"
@@ -104,17 +103,17 @@
                     "type": "integer"
                 },
                 "seccompProfile": {
+                    "type": "object",
                     "properties": {
                         "type": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "poddisruptionbudget": {
+            "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean"
@@ -122,10 +121,10 @@
                 "minAvailable": {
                     "type": "integer"
                 }
-            },
-            "type": "object"
+            }
         },
         "readinessProbe": {
+            "type": "object",
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
@@ -142,15 +141,16 @@
                 "timeoutSeconds": {
                     "type": "integer"
                 }
-            },
-            "type": "object"
+            }
         },
         "replicaCount": {
             "type": "integer"
         },
         "resources": {
+            "type": "object",
             "properties": {
                 "limits": {
+                    "type": "object",
                     "properties": {
                         "cpu": {
                             "type": "string"
@@ -158,10 +158,10 @@
                         "memory": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "requests": {
+                    "type": "object",
                     "properties": {
                         "cpu": {
                             "type": "string"
@@ -169,27 +169,26 @@
                         "memory": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 }
-            },
-            "type": "object"
+            }
         },
         "securityContext": {
+            "type": "object",
             "properties": {
                 "allowPrivilegeEscalation": {
                     "type": "boolean"
                 },
                 "capabilities": {
+                    "type": "object",
                     "properties": {
                         "drop": {
+                            "type": "array",
                             "items": {
                                 "type": "string"
-                            },
-                            "type": "array"
+                            }
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "privileged": {
                     "type": "boolean"
@@ -203,10 +202,10 @@
                 "runAsUser": {
                     "type": "integer"
                 }
-            },
-            "type": "object"
+            }
         },
         "service": {
+            "type": "object",
             "properties": {
                 "port": {
                     "type": "integer"
@@ -214,13 +213,12 @@
                 "type": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "serviceAccount": {
+            "type": "object",
             "properties": {
                 "annotations": {
-                    "properties": {},
                     "type": "object"
                 },
                 "create": {
@@ -229,10 +227,10 @@
                 "name": {
                     "type": "string"
                 }
-            },
-            "type": "object"
+            }
         },
         "startupProbe": {
+            "type": "object",
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
@@ -249,19 +247,19 @@
                 "timeoutSeconds": {
                     "type": "integer"
                 }
-            },
-            "type": "object"
+            }
         },
         "tolerations": {
             "type": "array"
         },
         "update": {
+            "type": "object",
             "properties": {
                 "affinity": {
-                    "properties": {},
                     "type": "object"
                 },
                 "image": {
+                    "type": "object",
                     "properties": {
                         "repository": {
                             "type": "string"
@@ -269,18 +267,18 @@
                         "tag": {
                             "type": "string"
                         }
-                    },
-                    "type": "object"
+                    }
                 },
                 "nodeSelector": {
-                    "properties": {},
                     "type": "object"
                 },
                 "schedule": {
                     "type": "string"
                 },
                 "tolerations": {
+                    "type": "array",
                     "items": {
+                        "type": "object",
                         "properties": {
                             "effect": {
                                 "type": "string"
@@ -294,15 +292,11 @@
                             "value": {
                                 "type": "string"
                             }
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
+                        }
+                    }
                 }
-            },
-            "type": "object"
+            }
         }
     },
-    "title": "clamav-scanner service",
-    "type": "object"
+    "additionalProperties": true
 }

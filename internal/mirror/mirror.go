@@ -66,7 +66,7 @@ func (proxy *StorageProxy) downloadBlob(w http.ResponseWriter, r *http.Request, 
 
 	defer func() {
 		if err := reader.Close(); err != nil {
-			log.Printf("Failed to close reader: %v", err)
+			log.Printf("Failed to close blob reader: %v", err)
 		}
 	}()
 	bufferedReader := bufio.NewReader(reader)
