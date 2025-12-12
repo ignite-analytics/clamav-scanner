@@ -1,4 +1,4 @@
-input:
+values:
   - 'values.yaml'
 
 draft: 2020
@@ -9,4 +9,3 @@ schemaRoot:
   title: clamav-scanner service
   description: helm values schema for clamav-scanner service
   additionalProperties: true
-  
