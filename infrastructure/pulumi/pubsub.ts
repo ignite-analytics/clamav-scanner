@@ -54,12 +54,6 @@ const subscriptionDeadLetter = new gcp.pubsub.Subscription(
 	}
 )
 
-const deadLetterSubscriptionIam = new gcp.pubsub.SubscriptionIAMMember(`${subscriptionDeadLetter.name}`, {
-	subscription: subscriptionDeadLetter.name,
-	role: 'roles/pubsub.subscriber',
-	member: `serviceAccount:${pubsub.gcsServiceAccount}`
-})
-
 const topics = [topic.name, deadLetterTopic.name]
 
 topics.forEach(topicName => {
@@ -76,7 +70,7 @@ topics.forEach(topicName => {
 const subscriptionIamBinding = new gcp.pubsub.SubscriptionIAMBinding('subscribers-binding', {
 	subscription: subscription.name,
 	role: 'roles/pubsub.subscriber',
-	members: pubsub.subscribers.map(subscriber => `serviceAccount:${subscriber}`)
+	members: [...pubsub.subscribers, pubsub.gcsServiceAccount].map(subscriber => `serviceAccount:${subscriber}`)
 })
 
 export const pubSub = {

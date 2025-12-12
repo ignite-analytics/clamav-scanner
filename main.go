@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
@@ -16,7 +17,6 @@ import (
 	"github.com/ignite-analytics/clamav-scanner/internal/scan"
 	"github.com/ignite-analytics/clamav-scanner/internal/update"
 	"github.com/ignite-analytics/clamav-scanner/internal/utils"
-	"golang.org/x/net/context"
 )
 
 var (

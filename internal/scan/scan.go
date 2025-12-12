@@ -42,7 +42,11 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 			http.Error(w, "Bad request", http.StatusBadRequest)
 			return
 		}
-		defer r.Body.Close()
+		defer func() {
+			if err := r.Body.Close(); err != nil {
+				log.Printf("Failed to close request body: %v", err)
+			}
+		}()
 
 		log.Printf("Received scan request for bucket: %s, file: %s\n", reqBody.Bucket, reqBody.Name)
 

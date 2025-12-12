@@ -20,7 +20,7 @@ jobs:
       opentofu: ${{ steps.filter.outputs.opentofu }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - uses: dorny/paths-filter@v3.0.2
         id: filter
@@ -46,18 +46,18 @@ jobs:
       VERBOSE: 1
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
           cache: true
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v6
+        uses: golangci/golangci-lint-action@v9
         with:
           args: --timeout 5m0s
           skip-cache: false
@@ -72,7 +72,7 @@ jobs:
         run: go mod verify
 
       - name: Run Gosec Security Scanner
-        uses: securego/gosec@a9eb1c96fae2533bee92dc08d311cd36d4ec2493 # v2.22.1
+        uses: securego/gosec@v2.22.11
         with:
           args: ./...
 
@@ -91,11 +91,11 @@ jobs:
         working-directory: ./infrastructure/pulumi
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node
         id: node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: 'npm'
@@ -125,7 +125,7 @@ jobs:
         working-directory: ./infrastructure/helm
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Check Helm documentation
         uses: losisin/helm-docs-github-action@v1
@@ -161,7 +161,7 @@ jobs:
         working-directory: ./infrastructure/opentofu
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install OpenTofu
         uses: opentofu/setup-opentofu@v1
