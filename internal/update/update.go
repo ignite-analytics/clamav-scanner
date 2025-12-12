@@ -20,7 +20,7 @@ func Handle(mirrorBucket string, client *storage.Client) http.HandlerFunc {
 		}
 
 		w.WriteHeader(http.StatusAccepted)
-		fmt.Fprintln(w, "Update request accepted. Processing in the background.")
+		_, _ = fmt.Fprintln(w, "Update request accepted. Processing in the background.")
 
 		go func() {
 			if err := update(); err != nil {

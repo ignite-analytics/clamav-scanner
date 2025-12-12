@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"os"
 
-	"cloud.google.com/go/pubsub"
+	"cloud.google.com/go/pubsub/v2"
 	"cloud.google.com/go/storage"
 	"github.com/lyimmi/go-clamd"
 )
@@ -85,7 +85,11 @@ func performScan(ctx context.Context, bucketName, fileName, quarantineBucket str
 	if err != nil {
 		return false, fmt.Errorf("failed to create storage client: %w", err)
 	}
-	defer storageClient.Close()
+	defer func() {
+		if err := storageClient.Close(); err != nil {
+			log.Printf("Failed to close storage client: %v", err)
+		}
+	}()
 
 	fileData, err := fetchFileFromBucket(ctx, storageClient, bucketName, fileName)
 	if err != nil {
@@ -112,9 +116,16 @@ func publishScanResultToPubSub(ctx context.Context, bucketName, fileName, result
 		log.Printf("Failed to create Pub/Sub client: %v", err)
 		return
 	}
-	defer pubsubClient.Close()
+	defer func() {
+		if err := pubsubClient.Close(); err != nil {
+			log.Printf("Failed to close Pub/Sub client: %v", err)
+		}
+	}()
 
-	topic := pubsubClient.Topic(topicName)
+	topicPath := fmt.Sprintf("projects/%s/topics/%s", projectId, topicName)
+	publisher := pubsubClient.Publisher(topicPath)
+	defer publisher.Stop()
+
 	resultMessage := map[string]string{
 		"file":   fileName,
 		"bucket": bucketName,
@@ -126,12 +137,13 @@ func publishScanResultToPubSub(ctx context.Context, bucketName, fileName, result
 		return
 	}
 
-	_, err = topic.Publish(ctx, &pubsub.Message{
+	result := publisher.Publish(ctx, &pubsub.Message{
 		Data: messageData,
 		Attributes: map[string]string{
 			"bucketName": bucketName,
 		},
-	}).Get(ctx)
+	})
+	_, err = result.Get(ctx)
 	if err != nil {
 		log.Printf("Failed to publish result to Pub/Sub: %v", err)
 	}
@@ -142,7 +154,11 @@ func fetchFileFromBucket(ctx context.Context, client *storage.Client, bucketName
 	if err != nil {
 		return nil, fmt.Errorf("failed to create object reader: %w", err)
 	}
-	defer rc.Close()
+	defer func() {
+		if err := rc.Close(); err != nil {
+			log.Printf("Failed to close object reader: %v", err)
+		}
+	}()
 
 	return io.ReadAll(rc)
 }
