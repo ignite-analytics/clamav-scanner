@@ -80,7 +80,7 @@ func Handle(quarantineBucket string) http.HandlerFunc {
 			return
 		}
 
-		go publishScanResultToPubSub(context.Background(), reqBody.Bucket, reqBody.Name, resultMsg)
+		go publishScanResultToPubSub(context.WithoutCancel(ctx), reqBody.Bucket, reqBody.Name, resultMsg)
 	}
 }
 
