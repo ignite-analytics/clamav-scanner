@@ -10,7 +10,9 @@
 		"pretty": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitReturns": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"types": ["node", "mocha", "chai"]
 	},
-	"files": ["index.ts"]
+	"include": ["**/*.ts"],
+	"exclude": ["node_modules", "bin"]
 }
