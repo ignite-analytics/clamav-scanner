@@ -4,8 +4,8 @@ go 1.25.0
 
 require (
 	cloud.google.com/go/pubsub/v2 v2.5.1
-	cloud.google.com/go/storage v1.61.3
-	github.com/fsouza/fake-gcs-server v1.53.1
+	cloud.google.com/go/storage v1.62.0
+	github.com/fsouza/fake-gcs-server v1.54.0
 	github.com/lyimmi/go-clamd v1.0.4
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/stretchr/testify v1.11.1
