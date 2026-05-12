@@ -128,7 +128,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Check Helm documentation
-        uses: losisin/helm-docs-github-action@v1
+        uses: losisin/helm-docs-github-action@v2
         with:
           chart-search-root: infrastructure/helm
           git-push: false
