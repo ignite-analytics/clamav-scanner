@@ -4,7 +4,7 @@ go 1.25.8
 
 require (
 	cloud.google.com/go/pubsub/v2 v2.6.0
-	cloud.google.com/go/storage v1.62.2
+	cloud.google.com/go/storage v1.62.3
 	github.com/fsouza/fake-gcs-server v1.54.0
 	github.com/lyimmi/go-clamd v1.0.4
 	github.com/shirou/gopsutil v3.21.11+incompatible
