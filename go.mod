@@ -3,12 +3,12 @@ module github.com/ignite-analytics/clamav-scanner
 go 1.25.8
 
 require (
-	cloud.google.com/go/pubsub/v2 v2.6.1
-	cloud.google.com/go/storage v1.64.0
+	cloud.google.com/go/pubsub/v2 v2.6.2
+	cloud.google.com/go/storage v1.65.0
 	github.com/fsouza/fake-gcs-server v1.55.1
 	github.com/lyimmi/go-clamd v1.0.4
 	github.com/shirou/gopsutil v3.21.11+incompatible
-	github.com/stretchr/testify v1.12.0
+	github.com/stretchr/testify v1.12.1
 	google.golang.org/api v0.293.0
 )
 
@@ -56,6 +56,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.44.0 // indirect
 	go.opentelemetry.io/otel/sdk/metric v1.44.0 // indirect
 	go.opentelemetry.io/otel/trace v1.44.0 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/crypto v0.54.0 // indirect
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
@@ -68,5 +69,4 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260807164820-c8921c73eeea // indirect
 	google.golang.org/grpc v1.83.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
