@@ -1,15 +1,15 @@
 module github.com/ignite-analytics/clamav-scanner
 
-go 1.26
+go 1.26.0
 
 require (
 	cloud.google.com/go/pubsub/v2 v2.7.0
-	cloud.google.com/go/storage v1.66.0
+	cloud.google.com/go/storage v1.67.1
 	github.com/fsouza/fake-gcs-server v1.56.1
 	github.com/lyimmi/go-clamd v1.0.4
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/stretchr/testify v1.12.1
-	google.golang.org/api v0.295.0
+	google.golang.org/api v0.297.0
 )
 
 require (
