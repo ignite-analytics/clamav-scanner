@@ -51,7 +51,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Go
-        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: go.mod
           cache: true
@@ -134,7 +134,7 @@ jobs:
           git-push: false
 
       - name: Check values schema json
-        uses: losisin/helm-values-schema-json-action@9ed68d9d464a5e6f7f5fc1f3dc071828cf7d13a2 # v3.2.0
+        uses: losisin/helm-values-schema-json-action@3bbbe5960e765b4e45205e6b3af45daeaec7d7f5 # v3.2.1
         with:
           working-directory: infrastructure/helm
           fail-on-diff: true
